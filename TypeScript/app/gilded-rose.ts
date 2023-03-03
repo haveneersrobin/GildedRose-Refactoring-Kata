@@ -1,4 +1,4 @@
-import { changeQuality, changeSetIn, Item } from "@/item";
+import { Item, updateItem } from "@/item";
 import { isLegendaryItem } from "./helpers";
 
 export class GildedRose {
@@ -15,8 +15,7 @@ export class GildedRose {
         return;
       }
 
-      changeQuality(item);
-      changeSetIn(item);
+      updateItem(item);
     });
 
     return this.items;

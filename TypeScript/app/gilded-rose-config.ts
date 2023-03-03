@@ -1,4 +1,4 @@
-import { isBackstagePass } from "@/helpers";
+import { isBackstagePass, isConjuredItem } from "@/helpers";
 import { Item } from "@/item";
 
 export const MAX_REGULAR_QUALITY = 50;
@@ -25,6 +25,13 @@ type ItemType =
 export const isOfType = <T extends ItemType>(name: string): name is T[number] =>
   name !== undefined;
 
+export const getQualityDecreaseRate = (item: Item) => {
+  if (isConjuredItem(item)) {
+    return 2;
+  }
+  return 1;
+};
+
 export const getQualityModifyAmount = (item: Item) => {
   if (isBackstagePass(item)) {
     if (item.sellIn <= 5) {
@@ -34,5 +41,5 @@ export const getQualityModifyAmount = (item: Item) => {
       return 2;
     }
   }
-  return 1;
+  return getQualityDecreaseRate(item);
 };
