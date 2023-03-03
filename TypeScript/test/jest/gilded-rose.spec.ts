@@ -26,22 +26,27 @@ describe("Gilded Rose", () => {
       new Item("Backstage passes to a TAFKAL80ETC concert", 14, 21),
       new Item("Backstage passes to a TAFKAL80ETC concert", 9, 50),
       new Item("Backstage passes to a TAFKAL80ETC concert", 4, 50),
-      // this conjured item does not work properly yet
-      new Item("Conjured Mana Cake", 2, 5),
+      new Item("Conjured Mana Cake", 2, 4),
     ];
 
     expect(gildedRose.updateQuality()).toStrictEqual(expectedResult);
   });
 
   it("should degrade a normal item twice as fast if sellIn date has passed", () => {
-    const initialItems = [new Item("+5 Dexterity Vest", 1, 4)];
+    const initialItems = [new Item("+5 Dexterity Vest", 2, 10)];
     const gildedRose = new GildedRose(initialItems);
 
     expect(gildedRose.updateQuality()).toStrictEqual([
-      new Item("+5 Dexterity Vest", 0, 3),
+      new Item("+5 Dexterity Vest", 1, 9),
     ]);
     expect(gildedRose.updateQuality()).toStrictEqual([
-      new Item("+5 Dexterity Vest", -1, 1),
+      new Item("+5 Dexterity Vest", 0, 8),
+    ]);
+    expect(gildedRose.updateQuality()).toStrictEqual([
+      new Item("+5 Dexterity Vest", -1, 6),
+    ]);
+    expect(gildedRose.updateQuality()).toStrictEqual([
+      new Item("+5 Dexterity Vest", -2, 4),
     ]);
   });
 
@@ -104,7 +109,7 @@ describe("Gilded Rose", () => {
     ]);
   });
 
-  it("should correctly increase value of backstage passes as sellIn data approaches", () => {
+  it("should correctly increase value of backstage passes as sellIn date approaches", () => {
     const initialItems = [
       new Item("Backstage passes to a TAFKAL80ETC concert", 11, 5),
       new Item("Backstage passes to a TAFKAL80ETC concert", 6, 10),
@@ -132,7 +137,6 @@ describe("Gilded Rose", () => {
     expect(gildedRose.updateQuality()).toStrictEqual([
       new Item("Conjured Mana Cake", 2, 4),
     ]);
-
     expect(gildedRose.updateQuality()).toStrictEqual([
       new Item("Conjured Mana Cake", 1, 2),
     ]);
