@@ -1,7 +1,8 @@
+import { isBackstagePass } from "@/helpers";
 import { Item } from "@/item";
 
 export const MAX_REGULAR_QUALITY = 50;
-export const FIXED_LEGENDARY_QUALITY = 80;
+export const MIN_QUALITY = 0;
 
 export enum ItemType {
   QualityIncreaser,
@@ -15,9 +16,23 @@ type TypedItem = {
   readonly type: ItemType;
 };
 
+export const backstagePasses = ["Backstage passes to a TAFKAL80ETC concert"];
+
 const QualityIncreasers: TypedItem = {
-  items: ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert"],
+  items: ["Aged Brie", ...backstagePasses],
   type: ItemType.QualityIncreaser,
+};
+
+export const getQualityModifyAmount = (item: Item) => {
+  if (isBackstagePass(item)) {
+    if (item.sellIn <= 5) {
+      return 3;
+    }
+    if (item.sellIn <= 10) {
+      return 2;
+    }
+  }
+  return 1;
 };
 
 const ConjuredItems: TypedItem = {

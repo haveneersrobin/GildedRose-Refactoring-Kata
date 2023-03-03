@@ -1,4 +1,9 @@
-import { MAX_REGULAR_QUALITY } from "./gilded-rose-config";
+import { isBackstagePass, isQualityIncreaser } from "@/helpers";
+import {
+  getQualityModifyAmount,
+  MAX_REGULAR_QUALITY,
+  MIN_QUALITY,
+} from "./gilded-rose-config";
 import { isLegendaryItem } from "./helpers";
 export class Item {
   name: string;
@@ -12,22 +17,50 @@ export class Item {
   }
 }
 
-// The isLegendaryItem checks below *should* not be necessary due
-// to the early return in updateQuality but better safe than sorry :-)
-export const increaseItemQuality = (item: Item) => {
-  if (!isLegendaryItem(item) && item.quality < MAX_REGULAR_QUALITY) {
-    item.quality = item.quality + 1;
+interface QualityChangeOptions {
+  multiplier?: number;
+}
+
+const increaseItemQuality = (
+  item: Item,
+  { multiplier = 1 }: QualityChangeOptions = {}
+) => {
+  if (isQualityIncreaser(item)) {
+    const increasedAmount =
+      item.quality + multiplier * getQualityModifyAmount(item);
+    item.quality = Math.min(increasedAmount, MAX_REGULAR_QUALITY);
   }
 };
 
-export const resetItemQuality = (item: Item) => {
+const resetItemQuality = (item: Item) => (item.quality = 0);
+
+const decreaseItemQuality = (
+  item: Item,
+  { multiplier = 1 }: QualityChangeOptions = {}
+) => {
+  const decreasedAmount =
+    item.quality - multiplier * getQualityModifyAmount(item);
+  item.quality = Math.max(decreasedAmount, MIN_QUALITY);
+};
+
+export const changeQuality = (item: Item, options?: QualityChangeOptions) => {
+  if (!isQualityIncreaser(item)) {
+    decreaseItemQuality(item, options);
+  } else {
+    increaseItemQuality(item, options);
+  }
+};
+
+export const changeSetIn = (item: Item) => {
   if (!isLegendaryItem(item)) {
-    item.quality = 0;
-  }
-};
+    item.sellIn = item.sellIn - 1;
 
-export const decreaseItemQuality = (item: Item) => {
-  if (!isLegendaryItem(item) && item.quality > 0) {
-    item.quality = item.quality - 1;
+    if (item.sellIn < 0) {
+      if (isBackstagePass(item)) {
+        resetItemQuality(item);
+      } else {
+        changeQuality(item, { multiplier: 1 });
+      }
+    }
   }
 };
