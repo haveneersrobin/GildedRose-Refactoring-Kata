@@ -4,24 +4,26 @@ import { Item } from "@/item";
 export const MAX_REGULAR_QUALITY = 50;
 export const MIN_QUALITY = 0;
 
-export enum ItemType {
-  QualityIncreaser,
-  Conjured,
-  Legendary,
-  Regular,
-}
+export const BackstagePasses = [
+  "Backstage passes to a TAFKAL80ETC concert",
+] as const;
+export const ConjuredItems = ["Conjured Mana Cake"] as const;
+export const LegendaryItems = ["Sulfuras, Hand of Ragnaros"] as const;
+export const RegularItems = [
+  "+5 Dexterity Vest",
+  "Elixir of the Mongoose",
+] as const;
+export const QualityIncreasers = ["Aged Brie", ...BackstagePasses] as const;
 
-type TypedItem = {
-  readonly items: Array<Item["name"]>;
-  readonly type: ItemType;
-};
+type ItemType =
+  | typeof BackstagePasses
+  | typeof ConjuredItems
+  | typeof LegendaryItems
+  | typeof RegularItems
+  | typeof QualityIncreasers;
 
-export const backstagePasses = ["Backstage passes to a TAFKAL80ETC concert"];
-
-const QualityIncreasers: TypedItem = {
-  items: ["Aged Brie", ...backstagePasses],
-  type: ItemType.QualityIncreaser,
-};
+export const isOfType = <T extends ItemType>(name: string): name is T[number] =>
+  name !== undefined;
 
 export const getQualityModifyAmount = (item: Item) => {
   if (isBackstagePass(item)) {
@@ -34,25 +36,3 @@ export const getQualityModifyAmount = (item: Item) => {
   }
   return 1;
 };
-
-const ConjuredItems: TypedItem = {
-  items: ["Conjured Mana Cake"],
-  type: ItemType.Conjured,
-};
-
-const LegendaryItems: TypedItem = {
-  items: ["Sulfuras, Hand of Ragnaros"],
-  type: ItemType.Legendary,
-};
-
-const RegularItems: TypedItem = {
-  items: ["+5 Dexterity Vest", "Elixir of the Mongoose"],
-  type: ItemType.Regular,
-};
-
-export const typedItems = [
-  QualityIncreasers,
-  ConjuredItems,
-  LegendaryItems,
-  RegularItems,
-];

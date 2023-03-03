@@ -1,14 +1,19 @@
-import { backstagePasses, ItemType, typedItems } from "@/gilded-rose-config";
+import {
+  BackstagePasses,
+  isOfType,
+  LegendaryItems,
+  QualityIncreasers,
+} from "@/gilded-rose-config";
 import { Item } from "@/item";
 
 export const isLegendaryItem = (item: Item) =>
-  getItemType(item) === ItemType.Legendary;
+  isOfType<typeof LegendaryItems>(item.name) &&
+  LegendaryItems.includes(item.name);
 
 export const isQualityIncreaser = (item: Item) =>
-  getItemType(item) === ItemType.QualityIncreaser;
+  isOfType<typeof QualityIncreasers>(item.name) &&
+  QualityIncreasers.includes(item.name);
 
 export const isBackstagePass = (item: Item) =>
-  isQualityIncreaser(item) && backstagePasses.includes(item.name);
-
-export const getItemType = (item: Item) =>
-  typedItems.find((typedItem) => typedItem.items.includes(item.name))?.type;
+  isOfType<typeof BackstagePasses>(item.name) &&
+  BackstagePasses.includes(item.name);
