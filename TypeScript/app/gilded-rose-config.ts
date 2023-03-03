@@ -1,4 +1,4 @@
-import { Item } from "./item";
+import { Item } from "@/item";
 
 export const MAX_REGULAR_QUALITY = 50;
 export const FIXED_LEGENDARY_QUALITY = 80;
