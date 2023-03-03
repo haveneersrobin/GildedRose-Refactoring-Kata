@@ -44,10 +44,10 @@ const decreaseItemQuality = (
 };
 
 export const changeQuality = (item: Item, options?: QualityChangeOptions) => {
-  if (!isQualityIncreaser(item)) {
-    decreaseItemQuality(item, options);
-  } else {
+  if (isQualityIncreaser(item)) {
     increaseItemQuality(item, options);
+  } else {
+    decreaseItemQuality(item, options);
   }
 };
 
