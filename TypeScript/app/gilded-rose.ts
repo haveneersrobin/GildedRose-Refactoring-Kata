@@ -1,4 +1,5 @@
 import { Item } from "@/item";
+import { isLegendaryItem } from "./helpers";
 
 export class GildedRose {
   items: Array<Item>;
@@ -9,6 +10,11 @@ export class GildedRose {
 
   updateQuality() {
     this.items.forEach((item) => {
+      // Early return for legendary item as they don't need any updating
+      if (isLegendaryItem(item)) {
+        return;
+      }
+
       if (
         item.name != "Aged Brie" &&
         item.name != "Backstage passes to a TAFKAL80ETC concert"
