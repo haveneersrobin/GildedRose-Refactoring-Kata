@@ -3,6 +3,7 @@ import { Item } from "@/item";
 
 export const MAX_REGULAR_QUALITY = 50;
 export const MIN_QUALITY = 0;
+export const EXPIRED_ITEMS_MULTIPLIER = 2;
 
 export const BackstagePasses = [
   "Backstage passes to a TAFKAL80ETC concert",

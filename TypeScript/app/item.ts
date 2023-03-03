@@ -1,5 +1,6 @@
 import { isBackstagePass, isQualityIncreaser } from "@/helpers";
 import {
+  EXPIRED_ITEMS_MULTIPLIER,
   getQualityModifyAmount,
   MAX_REGULAR_QUALITY,
   MIN_QUALITY,
@@ -40,7 +41,10 @@ const decreaseItemQuality = (
   item.quality = Math.max(decreasedAmount, MIN_QUALITY);
 };
 
-export const changeQuality = (item: Item, options?: QualityChangeOptions) => {
+export const changeQuality = (item: Item) => {
+  const options = {
+    multiplier: item.sellIn <= 0 ? EXPIRED_ITEMS_MULTIPLIER : 1,
+  };
   if (isQualityIncreaser(item)) {
     increaseItemQuality(item, options);
   } else {
@@ -53,7 +57,7 @@ export const updateItem = (item: Item) => {
   if (isBackstagePass(item) && item.sellIn <= 0) {
     resetItemQuality(item);
   } else {
-    changeQuality(item, { multiplier: item.sellIn <= 0 ? 2 : 1 });
+    changeQuality(item);
   }
   item.sellIn = item.sellIn - 1;
 };
