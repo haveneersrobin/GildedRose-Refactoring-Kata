@@ -124,4 +124,23 @@ describe("Gilded Rose", () => {
       new Item("Backstage passes to a TAFKAL80ETC concert", -1, 0),
     ]);
   });
+
+  it("should decrease quality of conjured items twice as fast", () => {
+    const initialItems = [new Item("Conjured Mana Cake", 3, 6)];
+    const gildedRose = new GildedRose(initialItems);
+
+    expect(gildedRose.updateQuality()).toStrictEqual([
+      new Item("Conjured Mana Cake", 2, 4),
+    ]);
+
+    expect(gildedRose.updateQuality()).toStrictEqual([
+      new Item("Conjured Mana Cake", 1, 2),
+    ]);
+    expect(gildedRose.updateQuality()).toStrictEqual([
+      new Item("Conjured Mana Cake", 0, 0),
+    ]);
+    expect(gildedRose.updateQuality()).toStrictEqual([
+      new Item("Conjured Mana Cake", -1, 0),
+    ]);
+  });
 });
