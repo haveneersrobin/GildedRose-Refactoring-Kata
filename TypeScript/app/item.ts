@@ -1,15 +1,15 @@
 import {
+  EXPIRED_ITEMS_QUALITY_MULTIPLIER,
+  getQualityChange,
+  MAX_REGULAR_QUALITY,
+  MIN_QUALITY,
+} from "@/gilded-rose-config";
+import {
   isBackstagePass,
   isQualityIncreaser,
   lessThanMaximumQuality,
   moreThanMinimumQuality,
 } from "@/helpers";
-import {
-  EXPIRED_ITEMS_QUALITY_MULTIPLIER,
-  getQualityChange,
-  MAX_REGULAR_QUALITY,
-  MIN_QUALITY,
-} from "./gilded-rose-config";
 export class Item {
   name: string;
   sellIn: number;

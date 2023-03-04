@@ -1,6 +1,10 @@
-import { isBackstagePass, isConjuredItem, isQualityIncreaser } from "@/helpers";
+import {
+  isBackstagePass,
+  isConjuredItem,
+  isLegendaryItem,
+  isQualityIncreaser,
+} from "@/helpers";
 import { Item } from "@/item";
-import { isLegendaryItem } from "./../../app/helpers";
 
 const initialItems = [
   new Item("+5 Dexterity Vest", 10, 20), //

@@ -1,5 +1,5 @@
+import { isLegendaryItem } from "@/helpers";
 import { Item, updateItem } from "@/item";
-import { isLegendaryItem } from "./helpers";
 
 export class GildedRose {
   items: Array<Item>;

@@ -1,5 +1,6 @@
 import {
   BackstagePasses,
+  ConjuredItems,
   isOfType,
   LegendaryItems,
   MAX_REGULAR_QUALITY,
@@ -7,7 +8,6 @@ import {
   QualityIncreasers,
 } from "@/gilded-rose-config";
 import { Item } from "@/item";
-import { ConjuredItems } from "./gilded-rose-config";
 
 // The type guard is necessary seen as though we are using `.includes` on readonly arrays
 export const isLegendaryItem = (item: Item) =>
