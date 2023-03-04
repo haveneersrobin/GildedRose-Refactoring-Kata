@@ -10,6 +10,7 @@ import {
   lessThanMaximumQuality,
   moreThanMinimumQuality,
 } from "@/helpers";
+
 export class Item {
   name: string;
   sellIn: number;
