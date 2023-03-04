@@ -47,6 +47,7 @@ The file `app/helpers.ts` contains helper functions to distinguish the different
 
 I added unit tests for the `app/helpers.ts` only later on. They were covered by the initial tests but at a certain point I was experimenting with some other approaches and tried refactoring it, so I thought some unit tests for this isolated part was in place.
 
-##### Template literals
+##### Other
 
-Lastly, I replaced string concatenation with interpolation because it is more readable and I like it more :)
+- I replaced string concatenation with interpolation because it is more readable and I like it more :)
+- I used (or did my best to use) [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) in this repo 😇
