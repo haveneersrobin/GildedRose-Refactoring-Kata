@@ -2,6 +2,8 @@ import {
   BackstagePasses,
   isOfType,
   LegendaryItems,
+  MAX_REGULAR_QUALITY,
+  MIN_QUALITY,
   QualityIncreasers,
 } from "@/gilded-rose-config";
 import { Item } from "@/item";
@@ -23,3 +25,9 @@ export const isBackstagePass = (item: Item) =>
 export const isConjuredItem = (item: Item) =>
   isOfType<typeof ConjuredItems>(item.name) &&
   ConjuredItems.includes(item.name);
+
+export const lessThanMaximumQuality = (item: Item) =>
+  item.quality < MAX_REGULAR_QUALITY;
+
+export const moreThanMaximumQuality = (item: Item) =>
+  item.quality > MIN_QUALITY;
