@@ -2,7 +2,7 @@ import {
   isBackstagePass,
   isQualityIncreaser,
   lessThanMaximumQuality,
-  moreThanMaximumQuality,
+  moreThanMinimumQuality,
 } from "@/helpers";
 import {
   EXPIRED_ITEMS_QUALITY_MULTIPLIER,
@@ -42,7 +42,7 @@ const decreaseItemQuality = (
   item: Item,
   { multiplier = 1 }: QualityChangeOptions = {}
 ) => {
-  if (moreThanMaximumQuality(item)) {
+  if (moreThanMinimumQuality(item)) {
     const decreasedAmount = item.quality - multiplier * getQualityChange(item);
     item.quality = Math.max(decreasedAmount, MIN_QUALITY);
   }

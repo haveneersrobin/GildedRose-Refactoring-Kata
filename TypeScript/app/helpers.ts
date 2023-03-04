@@ -29,5 +29,5 @@ export const isConjuredItem = (item: Item) =>
 export const lessThanMaximumQuality = (item: Item) =>
   item.quality < MAX_REGULAR_QUALITY;
 
-export const moreThanMaximumQuality = (item: Item) =>
+export const moreThanMinimumQuality = (item: Item) =>
   item.quality > MIN_QUALITY;
