@@ -131,20 +131,27 @@ describe("Gilded Rose", () => {
   });
 
   it("should decrease quality of conjured items twice as fast", () => {
-    const initialItems = [new Item("Conjured Mana Cake", 3, 6)];
+    const initialItems = [
+      new Item("Conjured Mana Cake", 3, 6),
+      new Item("Conjured Mana Cake", 1, 20),
+    ];
     const gildedRose = new GildedRose(initialItems);
 
     expect(gildedRose.updateQuality()).toStrictEqual([
       new Item("Conjured Mana Cake", 2, 4),
+      new Item("Conjured Mana Cake", 0, 18),
     ]);
     expect(gildedRose.updateQuality()).toStrictEqual([
       new Item("Conjured Mana Cake", 1, 2),
+      new Item("Conjured Mana Cake", -1, 14),
     ]);
     expect(gildedRose.updateQuality()).toStrictEqual([
       new Item("Conjured Mana Cake", 0, 0),
+      new Item("Conjured Mana Cake", -2, 10),
     ]);
     expect(gildedRose.updateQuality()).toStrictEqual([
       new Item("Conjured Mana Cake", -1, 0),
+      new Item("Conjured Mana Cake", -3, 6),
     ]);
   });
 });
