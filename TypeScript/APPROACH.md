@@ -4,7 +4,7 @@ The refactoring of this code and subsequently trying to improve it, was done in 
 
 ## 0. Setup
 
-Since I opted to perform this assignment in TypeScript, I removed unused files. Jest was chosen as the testing framework so the unused files/folders were removed. I ran `npm i`, extracted the `Item` class to its own file (`app/item.ts`). I simplified some printing methods in `golden-master-text-test.ts` and ran ESLint and Prettier. (_See: [`ef133b2`](https://github.com/haveneersrobin/gildedrose-ts-robin-haveneers/commit/ef133b2729b890a06ec947966ea50f6491a4d93f), [`f7cc632`](https://github.com/haveneersrobin/gildedrose-ts-robin-haveneers/commit/f7cc632b3925720be59fde247df68e6ce9af6035) and [`dd9631f`](https://github.com/haveneersrobin/gildedrose-ts-robin-haveneers/commit/dd9631f0deb7e62f4e09704e6704cffbe5609c01)_)
+Since I opted to perform this assignment in TypeScript, I removed unused files. Jest was chosen as the testing framework so the unused test files/folders were removed. I ran `npm i`, extracted the `Item` class to its own file (`app/item.ts`). I simplified some printing methods in `golden-master-text-test.ts` and ran ESLint and Prettier. (_See: [`ef133b2`](https://github.com/haveneersrobin/gildedrose-ts-robin-haveneers/commit/ef133b2729b890a06ec947966ea50f6491a4d93f), [`f7cc632`](https://github.com/haveneersrobin/gildedrose-ts-robin-haveneers/commit/f7cc632b3925720be59fde247df68e6ce9af6035) and [`dd9631f`](https://github.com/haveneersrobin/gildedrose-ts-robin-haveneers/commit/dd9631f0deb7e62f4e09704e6704cffbe5609c01)_)
 
 ## 1. Testing
 
@@ -17,8 +17,8 @@ Satisfied with these tests and the 'coverage' they provided, I began refactoring
 I began simple, doing the following
 
 - replaced the main `for`-loop in `gilded-rose.ts` with a more readable `.forEach` on `items`. This way we don't need to acces the array using the index every time.
-- added some helper methods in `app/helpers.ts` and added an early return for _Legendary items_ seen as though they do not required any actions. This way, I could remove the checks for the string "_Sulfuras, ..._"
-- replace the increase/decrease of the quality by a helper function, avoiding repitition
+- added some helper methods in `app/helpers.ts` and added an early return for _Legendary items_ seen as though they do not require any actions. This way, I could remove the checks for the string "_Sulfuras, ..._"
+- replace the increase/decrease of the quality by a helper function, avoiding repetition
 - simplified the logic of these methods by passing arguments and re-using existing parts
 
 (_See these commits [`25c0908...b1123864`](https://github.com/haveneersrobin/gildedrose-ts-robin-haveneers/compare/25c090805c1e5c2abe946259e652258e6b514c7a...b112386481bd483cbcada94ea9010997a5fb8813))_
@@ -27,11 +27,11 @@ I began simple, doing the following
 
 To account for the new 'conjured' item type, I started by added failing tests for this case. (See [`e01bdf2`](https://github.com/haveneersrobin/gildedrose-ts-robin-haveneers/commit/e01bdf2cdc8594398be9eba1bb7b966542ccb45c))
 
-Finally, adding the logic for this item was simple enough: I just needed to add a new 'multiplier' and return it in case we have a 'conjured' item. Finally, I did some cleanup and moved around some code. (See [`f73a5a1`](https://github.com/haveneersrobin/gildedrose-ts-robin-haveneers/commit/f73a5a1cfd9189caf0e437b246cc59029f9ea665))
+Finally, adding the logic for this item was simple enough: I just needed to add a new 'multiplier' and return it in case we have a 'conjured' item. To finsh things off, I cleaned up and moved around some code. (See [`f73a5a1`](https://github.com/haveneersrobin/gildedrose-ts-robin-haveneers/commit/f73a5a1cfd9189caf0e437b246cc59029f9ea665))
 
 ## 4. Config file
 
-I opted to create a `gilded-rose-config.ts` file to centralize all 'configuration' values. For example, the mininmum and maximum quality, special multipliers (e.g. for conjured items) and different types of items are gathered here. This way, changing parts of the logic is easy and centralized ('refactor for maintainability').
+I opted to create a `gilded-rose-config.ts` file to centralize all 'configuration' values. For example, the mininmum and maximum quality, special multipliers (e.g. for 'conjured items') and definitions for the different types of items are gathered here. This way, changing parts of the logic is easy and only requires to change it in one place ('refactor for maintainability').
 
 ## 5. Alternatives and considerations
 
@@ -41,7 +41,7 @@ After thinking about the flow, changing the `sellIn` property can be done at the
 
 ##### Item subclasses
 
-The file `app/helpers.ts` contains helper functions to distinguish the different types of items. At first I considered creating new classes extending from `Item` (e.g. `ConjuredItem`) with their own `changeQuality` methods. This way, however, I would have to change the test file (e.g. using new/different constructors) or the `Item` class itself, and I think that is not allowed and this was not allowed according to the instructions.
+The file `app/helpers.ts` contains helper functions to distinguish the different types of items. At first I considered creating new classes extending from `Item` (e.g. `ConjuredItem`) with their own `changeQuality` methods. This way, however, I would have to change the test file (e.g. using new/different constructors) or the `Item` class itself, and I think that is not allowed according to the instructions.
 
 ##### Unit tests for helper functions
 
